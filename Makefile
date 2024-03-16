@@ -1,4 +1,4 @@
-all: bupload chi releasetool toAscii scaffold
+all: bupload chi releasetool toascii scaffold tsgo
 
 bupload_windows: 
 	@echo "bupload: windows"
@@ -42,19 +42,19 @@ releasetool_darwin:
 
 releasetool: releasetool_windows releasetool_linux releasetool_darwin
 
-toAscii_windows: 
-	@echo "toAscii: windows"
-	@GOOS=windows go build -ldflags="-s -w" -o ./out/windows/ ./cmd/toAscii/
+toascii_windows: 
+	@echo "toascii: windows"
+	@GOOS=windows go build -ldflags="-s -w" -o ./out/windows/ ./cmd/toascii/
 
-toAscii_linux: 
-	@echo "toAscii: linux"
-	@GOOS=linux go build -ldflags="-s -w" -o ./out/linux/ ./cmd/toAscii/
+toascii_linux: 
+	@echo "toascii: linux"
+	@GOOS=linux go build -ldflags="-s -w" -o ./out/linux/ ./cmd/toascii/
 
-toAscii_darwin: 
-	@echo "toAscii: darwin"
-	@GOOS=darwin go build -ldflags="-s -w" -o ./out/darwin/ ./cmd/toAscii/
+toascii_darwin: 
+	@echo "toascii: darwin"
+	@GOOS=darwin go build -ldflags="-s -w" -o ./out/darwin/ ./cmd/toascii/
 
-toAscii: toAscii_windows toAscii_linux toAscii_darwin
+toascii: toascii_windows toascii_linux toascii_darwin
 
 scaffold_windows: 
 	@echo "scaffold: windows"
@@ -69,3 +69,17 @@ scaffold_darwin:
 	@GOOS=darwin go build -ldflags="-s -w" -o ./out/darwin/ ./cmd/scaffold/
 
 scaffold: scaffold_windows scaffold_linux scaffold_darwin
+
+tsgo_windows: 
+	@echo "tsgo: windows"
+	@GOOS=windows go build -ldflags="-s -w" -o ./out/windows/ ./cmd/tsgo/
+
+tsgo_linux: 
+	@echo "tsgo: linux"
+	@GOOS=linux go build -ldflags="-s -w" -o ./out/linux/ ./cmd/tsgo/
+
+tsgo_darwin: 
+	@echo "tsgo: darwin"
+	@GOOS=darwin go build -ldflags="-s -w" -o ./out/darwin/ ./cmd/tsgo/
+
+tsgo: tsgo_windows tsgo_linux tsgo_darwin
