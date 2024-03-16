@@ -2,7 +2,7 @@ module github.com/lspaccatrosi16/tools
 
 go 1.21
 
-require github.com/lspaccatrosi16/go-cli-tools v0.5.0
+require github.com/lspaccatrosi16/go-cli-tools v0.5.1
 
 require (
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e // indirect

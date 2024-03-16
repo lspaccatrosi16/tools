@@ -3,7 +3,6 @@ package generator
 import (
 	"bytes"
 	"fmt"
-	"io"
 	"slices"
 	"strconv"
 	"strings"
@@ -24,7 +23,7 @@ type Generator struct {
 	SymTab         SymTab
 }
 
-func (g *Generator) ProduceFile() io.Reader {
+func (g *Generator) ProduceFile() *bytes.Buffer {
 	buf := bytes.NewBuffer(nil)
 
 	fmt.Fprintf(buf, "package %s\n", g.Settings.PackageName)
@@ -170,7 +169,7 @@ func (g *Generator) FlattenNode(node *types.TsNode) {
 	}
 }
 
-func Generate(settings GenerateSettings, nodes []*types.TsNode) io.Reader {
+func Generate(settings GenerateSettings, nodes []*types.TsNode) *bytes.Buffer {
 	generator := Generator{
 		Nodes:          nodes,
 		FlattenedNodes: []*types.TsNode{},

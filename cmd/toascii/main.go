@@ -2,47 +2,24 @@ package main
 
 import (
 	"bytes"
-	"flag"
 	"fmt"
 	"io"
-	"os"
 
 	"github.com/lspaccatrosi16/go-cli-tools/input"
+	"github.com/lspaccatrosi16/go-cli-tools/logging"
+	"github.com/lspaccatrosi16/tools/lib/pipes"
 )
-
-var ipt = flag.String("i", "", "input path")
-var opt = flag.String("o", "", "output path")
 
 func main() {
 	replacements := map[string]byte{}
+	logger := logging.GetLogger()
 
-	flag.Parse()
-
-	if *ipt == "" {
-		fmt.Println("must provide an input")
+	if pipes.PipeOut() {
+		logger.SetDisable(true)
 	}
 
-	if *opt == "" {
-		fmt.Println("must provide an output")
-	}
-
-	src, err := os.Open(*ipt)
-	if err != nil {
-		panic(err)
-	}
-
-	defer src.Close()
-
-	dst, err := os.Create(*opt)
-	if err != nil {
-		panic(err)
-	}
-
-	defer dst.Close()
-
-	buf := bytes.NewBuffer(nil)
-
-	io.Copy(buf, src)
+	src := pipes.GetInput()
+	buf := bytes.NewBuffer(src)
 
 	parsed := bytes.NewBuffer(nil)
 
@@ -80,8 +57,7 @@ func main() {
 		}
 	}
 
-	io.Copy(dst, parsed)
-
+	pipes.DoOutput(parsed.Bytes())
 }
 
 func readChar(buf *bytes.Buffer, b1 byte) ([]byte, error) {
