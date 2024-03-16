@@ -33,7 +33,7 @@ func main() {
 		logger.SetDisable(true)
 	}
 
-	src := pipes.GetInput()
+	src := pipes.GetInput(true)
 
 	tree := parser.ParseInput(string(src))
 
@@ -45,5 +45,5 @@ func main() {
 
 	generated := generator.Generate(settings, tree)
 
-	pipes.DoOutput(generated.Bytes())
+	pipes.DoOutput(true, generated.Bytes())
 }

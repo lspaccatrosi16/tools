@@ -10,7 +10,7 @@ import (
 
 var oloc = flag.String("o", "", "path to input")
 
-func DoOutput(out []byte) {
+func DoOutput(pipeAllowed bool, out []byte) {
 	if !flag.Parsed() {
 		flag.Parse()
 	}
@@ -18,16 +18,14 @@ func DoOutput(out []byte) {
 	if *oloc != "" {
 		dst, err := os.Create(*oloc)
 		if err != nil {
-			if os.IsNotExist(err) {
-				fmt.Println("input location not found")
-				os.Exit(1)
-			} else {
-				panic(err)
-			}
+			panic(err)
 		}
 		defer dst.Close()
 		buf := bytes.NewBuffer(out)
 		io.Copy(dst, buf)
+	} else if !pipeAllowed {
+		fmt.Println("expected -o")
+		os.Exit(1)
 	} else {
 		os.Stdout.Write(out)
 	}

@@ -10,7 +10,7 @@ import (
 
 var iloc = flag.String("i", "", "path to input")
 
-func GetInput() []byte {
+func GetInput(pipeAllowed bool) []byte {
 	if !flag.Parsed() {
 		flag.Parse()
 	}
@@ -29,12 +29,18 @@ func GetInput() []byte {
 		buf := bytes.NewBuffer(nil)
 		io.Copy(buf, src)
 		return buf.Bytes()
+	} else if !pipeAllowed {
+		fmt.Println("expected -i")
+		os.Exit(1)
+		return nil
 	} else {
 		stdin, err := io.ReadAll(os.Stdin)
 
 		if err != nil {
 			panic(err)
 		}
+
+		fmt.Println("len", len(stdin))
 		return stdin
 	}
 }

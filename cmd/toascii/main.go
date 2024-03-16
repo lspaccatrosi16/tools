@@ -18,8 +18,10 @@ func main() {
 		logger.SetDisable(true)
 	}
 
-	src := pipes.GetInput()
+	src := pipes.GetInput(false)
 	buf := bytes.NewBuffer(src)
+
+	fmt.Println("got input")
 
 	parsed := bytes.NewBuffer(nil)
 
@@ -57,7 +59,7 @@ func main() {
 		}
 	}
 
-	pipes.DoOutput(parsed.Bytes())
+	pipes.DoOutput(false, parsed.Bytes())
 }
 
 func readChar(buf *bytes.Buffer, b1 byte) ([]byte, error) {
