@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	replacements := map[string]byte{}
+	replacements := map[string]string{}
 	logger := logging.GetLogger()
 
 	if pipes.PipeOut() {
@@ -53,7 +53,7 @@ func main() {
 				repl = getReplace(ch)
 				replacements[key] = repl
 			}
-			parsed.WriteByte(repl)
+			parsed.WriteString(repl)
 		} else {
 			parsed.WriteByte(ch[0])
 		}
@@ -109,15 +109,15 @@ func readChar(buf *bytes.Buffer, b1 byte) ([]byte, error) {
 	return ch, nil
 }
 
-func getReplace(ch []byte) byte {
+func getReplace(ch []byte) string {
 	fmt.Printf("%s was found in your input.\n", ch)
 inputChar:
-	repl := input.GetInput("Replacement character")
+	repl := input.GetInput("Replacement string")
 
 	if len(repl) != 1 {
 		fmt.Println("expected a single character")
 		goto inputChar
 	}
 
-	return repl[0]
+	return repl
 }

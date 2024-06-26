@@ -28,7 +28,6 @@ func main() {
 	entries := crawlFolder(wd)
 
 	summary := []string{}
-	baseNames := map[string]bool{}
 
 	for _, ent := range entries {
 		ext := filepath.Ext(ent)
@@ -43,8 +42,6 @@ func main() {
 		}
 
 		newName := fmt.Sprintf("%s-%s%s", withoutExt, parentFolderName, ext)
-		baseNames[newName] = true
-
 		src, err := os.Open(ent)
 
 		if err != nil {
@@ -105,15 +102,19 @@ func main() {
 	createCommandText := fmt.Sprintf("gh release create v%s --generate-notes", tag)
 	genAssetStr := ""
 
-	for k := range baseNames {
-		genAssetStr += fmt.Sprintf("\"%s\" ", filepath.Join(wd, k))
-	}
-
-	uploadReleaseText := fmt.Sprintf("gh release upload v%s %s", tag, genAssetStr)
-
+	ents, err := os.ReadDir(wd)
 	if err != nil {
 		panic(err)
 	}
+
+	for _, ent := range ents {
+		if ent.IsDir() {
+			continue
+		}
+		genAssetStr += fmt.Sprintf("\"%s\" ", filepath.Join(wd, ent.Name()))
+	}
+
+	uploadReleaseText := fmt.Sprintf("gh release upload v%s %s", tag, genAssetStr)
 
 	fmt.Println("Release commands:", "\n", "")
 	fmt.Println(createCommandText+":", "\n", "")

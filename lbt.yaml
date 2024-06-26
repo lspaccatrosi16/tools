@@ -1,0 +1,22 @@
+name: tools
+modules:
+  - name: build
+    config:
+      targets:
+        - { os: linux, arch: amd64 }
+        - { os: darwin, arch: amd64 }
+        - { os: windows, arch: amd64 }
+      commands:
+        - {path: cmd/bupload/main.go, name: bupload}
+        - {path: cmd/chi/main.go, name: chi}
+        - {path: cmd/releasetool/main.go, name: releasetool}
+        - {path: cmd/scaffold/main.go, name: scaffold}
+        - {path: cmd/toascii/main.go, name: toascii}
+        - {path: cmd/tsgo/main.go, name: tsgo}
+      ldflags: -s -w
+  
+  - name: output
+    config:
+      module: build
+      outDir: out
+  
