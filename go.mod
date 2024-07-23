@@ -1,8 +1,8 @@
 module github.com/lspaccatrosi16/tools
 
-go 1.21
+go 1.22
 
-require github.com/lspaccatrosi16/go-cli-tools v0.5.1
+require github.com/lspaccatrosi16/go-cli-tools v0.5.6
 
 require (
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e // indirect
@@ -12,6 +12,8 @@ require (
 )
 
 require gonum.org/v1/gonum v0.14.0
+
+replace github.com/lspaccatrosi16/go-libs => ../go-libs
 
 require (
 	cloud.google.com/go v0.110.2 // indirect
@@ -54,7 +56,7 @@ require (
 	github.com/googleapis/gax-go/v2 v2.12.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/kirsle/configdir v0.0.0-20170128060238-e45d2f54772f // indirect
-	github.com/lspaccatrosi16/go-libs v0.0.1 // indirect
+	github.com/lspaccatrosi16/go-libs v0.2.2 // indirect
 	github.com/mandelsoft/vfs v0.4.3
 	go.opencensus.io v0.24.0 // indirect
 	golang.org/x/crypto v0.14.0 // indirect

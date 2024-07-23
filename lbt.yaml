@@ -13,6 +13,7 @@ modules:
         - {path: cmd/scaffold/main.go, name: scaffold}
         - {path: cmd/toascii/main.go, name: toascii}
         - {path: cmd/tsgo/main.go, name: tsgo}
+        - {path: cmd/sconfig/main.go, name: sconfig}
       ldflags: -s -w
   
   - name: output
